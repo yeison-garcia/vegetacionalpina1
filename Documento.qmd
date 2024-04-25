@@ -1,0 +1,80 @@
+---
+title: "Cambios en los rasgos funcionales de la vegetación alpina frente a perturbaciones zoogénicas y de las variaciones ambientales a lo largo de un grandiente mesotopográfico"
+format: pdf
+editor: visual
+bibliography: references.bib
+biblio-title: Referencias
+number-sections: true
+---
+
+## Introducción
+
+Las estrategias de las plantas se han definido como conjuntos de rasgos de historia de vida coadaptados, cada conjunto diseñado para resolver un problema ecológico particular. Se supone que la heterogeneidad del hábitat proporciona la plantilla sobre la cual los procesos evolutivos forjan las estrategias de las plantas y los rasgos funcionales de las especies son el resultado de una historia de adaptación a largo plazo [@billings] .
+
+Las comunidades de plantas árticas y alpinas exhiben una alta rotación de especies a lo largo de gradientes mesotopográficos y suelen variar desde crestas sin nieve y expuestas al viento hasta ventisqueros duraderos. se reconoce ampliamente que las diferencias consistentes y repetidas en los patrones de derretimiento de la nieve determinan en gran medida la naturaleza y la intensidad del estrés y/o perturbación que las plantas tienen que afrontar y, como tal, se espera que sean un fuerte impulsor ecológico de la clasificación de especies para Comunidades vegetales alpinas. En [@Choler2005-fq] examinó los patrones de diversidad funcional de las plantas alpinas y probó una relación significativa entre los rasgos funcionales de las plantas y la heterogeneidad del hábitat a lo largo de un gradiente de derretimiento de la nieve en las cuales se implementaron 8 variables correspondientes a rasgos funcionales en plantas de comunidades alpinas. Más tarde, en [@dray2014] se busco evaluar relaciones entre los rasgos funcionales frente a índices de perturbaciones zoogénicas y de accidentes geográficos. De esto se derivó una matriz de datos con 14 variables con la cual el presente trabajo se realizo bajo los siguientes objetivos y preguntas:
+
+::: callout-note
+## Pregunta
+
+¿ Cómo los rasgos funcionales de comunidades vegetales alpinas se ven afectadas a lo largo un gradiente mesotopográfico y de perturbación zoogénica?
+:::
+
+## Objetivos
+
+### Objetivo general
+
+-   Determinar cómo los rasgos funcionales de comunidades vegetales alpinas se ven afectadas a lo largo de un gradiente mesotopográficos y de perturbación zoogénica
+
+### Objetivos específicos
+
+-   Identificar los rasgos funcionales claves presentes en las comunidades vegetales de las praderas alpinas y analizar como estos determinan su adaptación y funcionamiento en este ecosistema.
+
+-   Evaluar la influencia de las pertubaciones zoogénicas dado por la presencia de la marmota alpina en la diversidad de plantas y su relación con las características ambientales
+
+-   Establecer relaciones significativas entre las abundancias de especies y entre las variables ambientales.
+
+::: callout-tip
+## Hipótesis
+
+Ho: No existen diferencias entre la abundancia de especies vegetales en 3 niveles de pertubación zoogénica
+
+Ha: existen diferencias entre la abundancia de especies vegetales en 3 niveles de pertubación zoogénica
+
+------------------------------------------------------------------------
+
+Ho: No existen diferencias entre las variables ambientales presentes en las praderas alpinas, bajo tres niveles de perturbación
+
+Ha: existen diferencias entre las variables ambientales presentes en las praderas alpinas, bajo tres niveles de perturbación
+:::
+
+## Diagrama de flujo
+
+[![](https://mermaid.ink/img/pako:eNpVUstu2zAQ_JUFTwkgG5ZkRaoOOdhy2kORAnWRQy0fVtJaZiGRAkmlcRx_VT4hP9albRStDnzMzswuBzqKWjckcrHr9O96j8bBj6JUwF9TbW4KdGjJ5RfkiVpyWMuPdwXYDVLh7RYupcXmCY3EqiObQwLYV5KUQ77CATJoCAzaVtsrfTeqWmrl6xfgW2XJPKMHvUOawDAqx3xW9iNZZ0hftQ9YO21yeJTP1Pn6QMaN1XWuRx3AWvcUwBfZ7relaqrJ5B4WLF6AP72t6Q2Wm5WtdSvJaAUdWrDDwIyab1iNqkEej9H7aLb9T1ds1gS_eLKP978yLyqVH-USFrekfwNgh5WXGcJOvqLvuJPtyHkAvQydNsjP4W7MK7jRqlTLy7Y6t611r98eNkttDHW6Ndijf4v2Uu5VkLKywYYhNFdIWo7E-ji2MJmyyeebr7IyaA7g3XgxZ2oAbev3KIDvUPHst6USgejJ9Cgb_imOPvFSuD31VIqcjw3tcOxcKUp1YiqOTq8Pqha5MyMFYhw4BCok-jlFvsPOMjqgEvlRvIg8nGfTNA5nd1E6j7NwPs8CcRD55C6efsqyMJ3NwzRJszQ-BeJVa7aIpmESRdEsDGdZGCdxmJz9fp6LZ__TH4WN7Kk?type=png)](https://mermaid.live/edit#pako:eNpVUstu2zAQ_JUFTwkgG5ZkRaoOOdhy2kORAnWRQy0fVtJaZiGRAkmlcRx_VT4hP9albRStDnzMzswuBzqKWjckcrHr9O96j8bBj6JUwF9TbW4KdGjJ5RfkiVpyWMuPdwXYDVLh7RYupcXmCY3EqiObQwLYV5KUQ77CATJoCAzaVtsrfTeqWmrl6xfgW2XJPKMHvUOawDAqx3xW9iNZZ0hftQ9YO21yeJTP1Pn6QMaN1XWuRx3AWvcUwBfZ7relaqrJ5B4WLF6AP72t6Q2Wm5WtdSvJaAUdWrDDwIyab1iNqkEej9H7aLb9T1ds1gS_eLKP978yLyqVH-USFrekfwNgh5WXGcJOvqLvuJPtyHkAvQydNsjP4W7MK7jRqlTLy7Y6t611r98eNkttDHW6Ndijf4v2Uu5VkLKywYYhNFdIWo7E-ji2MJmyyeebr7IyaA7g3XgxZ2oAbev3KIDvUPHst6USgejJ9Cgb_imOPvFSuD31VIqcjw3tcOxcKUp1YiqOTq8Pqha5MyMFYhw4BCok-jlFvsPOMjqgEvlRvIg8nGfTNA5nd1E6j7NwPs8CcRD55C6efsqyMJ3NwzRJszQ-BeJVa7aIpmESRdEsDGdZGCdxmJz9fp6LZ__TH4WN7Kk)
+
+## Figuras exploratorias
+
+### Composición de especies vegetales
+
+![Abundancia total de especies encontradas. En el gráfico inferior derecho se observa el recuento de especies que presentaron abundancia superior o inferiores a 20 individuos. En el gráfico izquierdo se presenta la abundancia de especies más dominantes.](figura_1_comp_especies.png){#fig-abudancia width="543"}
+
+En la @fig-abudancia se observa que las especies *Poa alpina* y *Geum montanum* registran la mayor abundancia encontrada (104 y 78 individuos respectivamente).
+
+![](images/tabla1.png)
+
+## Graficos de elipse![Grafico de elipse con variables ambientales](images/Imagen%20de%20WhatsApp%202024-03-21%20a%20las%2010.34.18_d0cd9056.jpg)
+
+![Grafico de elipse con variables biologicas ( Rasgos funcionales)](images/elipse%20con%20correlación.png)
+
+En esta grafica se observa las correlaciones entre variables biologicas, se logra diferenciar un alto indice de pearson entre el area folear especifica y el contenido de nitrogeno en la masa de los folios (0,75)
+
+Grafico de elipse con variables ambientales: se observa algunas relaciones inversas como lo son PhysD y Forma y algunas correlaciones positivas como lo son la forma y la abundancia.
+
+![Grafico de pares para variables ambientales](images/Imagen%20de%20WhatsApp%202024-03-14%20a%20las%2016.10.52_5057f97f.jpg)
+
+![![](images/Imagen%20de%20WhatsApp%202024-03-21%20a%20las%2010.34.18_85f55251.jpg)Grafico de pares con rasgos funcionales](images/Imagen%20de%20WhatsApp%202024-03-20%20a%20las%2022.37.43_0e112c9b.jpg)
+
+Cajas y bigote
+
+![figura blogbox relacionando la perturbacion con la abundancia usando como factor ZoogD](images/Imagen%20de%20WhatsApp%202024-03-14%20a%20las%2016.11.49_b4775eec.jpg)
+
+## Referencias

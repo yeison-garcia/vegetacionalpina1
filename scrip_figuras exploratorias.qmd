@@ -1,0 +1,238 @@
+---
+title: "titulo"
+subtitle: ""
+format: html
+editor_options: 
+  chunk_output_type: inline
+execute: 
+  warning: false
+  message: false
+---
+
+# 1 cargar librerias
+
+```{r}
+library(ggplot2)
+library(vegan)
+installed.packages(c("lubridate", "ggplot2","readr", "forcats", "tedyverse", "openxlsx" ))
+library(tidyverse)
+library(xtable)       # Importar y exportar
+library(openxlsx)     # exportar "*.xlsx" 
+library(readxl)       # Importar y exportar
+library(readxl)
+library(lattice)      # No se requiere instalar
+library(ggplot2)      # gráfica en ggplot2
+library(ggrepel)      # insertar rótulos a los puntos
+require(SciViews)     # Fig. dispersión con coef. de pearson
+library(plotrix)      # Figuras de cajas con múltiples variables
+library(reshape)      # Figuras de cajas con múltiples variables
+library(corrplot)     # Figuras de elipses
+```
+
+# nombrar y organizar las variables
+
+```{r}
+library(readxl)
+# datos2 <- read_excel("datos2.xlsx", 
+#    sheet = "datos (2)")
+# View(datos2)
+
+datos2<- read.csv2("datos1.csv", header = TRUE)
+head(datos2)
+
+# colnames(datos2) <- c("ID","Aspect","Slope","Form","PhysD","abudancia","ZoogD")   	# R?tulos de la base de datos  PhysD	ZoogD	Snow	abudancia 
+
+
+datos3<- datos2 %>% select(2:6,8) # no tiene la variable snow
+view(datos3)
+
+```
+
+## cargar base de datos
+
+```{r}
+
+str(datos2)# estructura de la base "datos"
+# datos = read.csv2(file.choose(new = FALSE),row.names=1)
+datos2
+summary(datos2) 
+
+```
+
+## 
+
+```{r}
+##datos2$Form <- as.factor(datos2$Form ) ## hacer facor a pertubacion por marmota
+str(datos2)
+```
+
+## 
+
+```{r}
+datos_corr<- datos2 %>% select(2,3,5,7,8)
+M <- cor(datos_corr)
+round(M,2)
+```
+
+## Figuras de dispersión 
+
+### 4. Figuras de pares entre las variables ambientales y la abunbundancia
+
+```{r}
+pairs ((datos2[2:5]),panel=function(x,y)
+  {abline(lsfit(x,y)$coef,lwd=2,col=3)    # lwd = Ancho de la línea
+  lines(lowess(x,y),lty=1,lwd=3,col=2)    # col= Color de la línea
+  points(x,y,cex=1)}) 
+```
+
+## figura de elipses de abundancia y variables ambientales
+
+```{r}
+library(corrplot)
+#| fig-cap: "Matriz de correlación de Pearson con variables ambientales. Los colores en rojo presentan relaciones negativas entre variables, y el color azul relaciones positivas. La intensidad d color corresponden a la fuerza de la relación"
+#| label: "fig-corre"
+corrplot(M, method = "ellipse", addCoef.col = TRUE)
+```
+
+En la @fig-corre se evidencia una fuerte relación negativa entre Índice de forma de la microtopografía y la pertubación física del suelo no vegetado. Por lo que el porcentaje de suelo no vegetado se ve afectado por la topografía presente en la pradera. Además, se observa una relación positiva entre la abundancia de especies vegetales y la pendiente del terreno, por lo que en los sitios con alta pendiente presentan mayor abundancia de plantas.
+
+# diagramas de dispersion con el facor perturbacion
+
+```{r}
+str(datos3)
+pairs ((datos3[,c(1,2,3,4,6)]),panel=function(x,y)
+  {abline(lsfit(x,y)$coef,lwd=2,col=3)
+  lines(lowess(x,y),lty=2,lwd=2,col=3)
+  points(x,y, col= datos3$ZoogD, cex=1.4,pch=19)})
+```
+
+```{r, warning=FALSE}
+library(lattice)
+pairs(datos2[,c(2:5,7)], diag.panel = panel.hist, 
+  upper.panel = panel.cor, lower.panel = panel.smooth)
+```
+
+```{r}
+#| message: false
+library(ggplot2)
+library(GGally)
+
+ggpairs(datos2, columns = c(2:5), 
+        aes(color=ZoogD, alpha = 0.5))
+```
+
+## Figuras de Cajas y bigotes
+
+```{r}
+datos2$ZoogD<-factor(datos2$ZoogD, 
+ levels=c("no","some","high"))
+names(datos2)
+```
+
+```{r}
+boxplot( abudancia ~ ZoogD, data=datos2,
+xlab="perturbacion",ylab="Abundancia",
+col="#99d8c9", cex.lab=1.3)
+```
+
+```{r}
+# Resultado: ColorBrewer: Color Advice for Maps
+ggplot(datos2, aes(y=abudancia, x=ZoogD)) + 
+  geom_boxplot(aes(fill = ZoogD)) +
+  scale_fill_manual(values = c('#fc8d59','#ffffbf',
+                               '#99d594','#3182bd')) +
+  theme_bw() +
+  labs(y= "Abundancia", x="perturbacion")
+```
+
+```{r}
+ggplot(melt(datos2[,c(2:6,7)]), aes(x=variable, y=value)) + 
+  geom_boxplot(aes(fill = ZoogD)) + 
+  labs(x="",y="abudancia")
+```
+
+```{r}
+ggplot(melt(datos2[,c(2,4:8)]), aes(x=variable, y=value)) + 
+  geom_boxplot(aes(fill=ZoogD)) + 
+  labs(x="",y="Abundancia") + 
+  facet_wrap(~ variable,scales="free") + 
+  theme_bw()
+```
+
+## PCA
+
+```{r}
+# Librerías requeridas
+library(ggplot2)
+library(reshape2)
+library(ggrepel)
+library(vegan)
+library(factoextra) # para hacer PCA
+library(ggsci)
+library(ggforce)
+library(concaveman)
+library(corrplot)
+```
+
+### Transformaciones a la matriz ambiental y biologica
+
+```{r}
+# Variables ambientales
+amb= log10(datos2[,c(2:5,7)] +1)
+round(head(amb),1)
+
+tax.hel= decostand(datos2[,c(9:44)],"hellinger")
+glimpse(tax.hel)
+round(head(tax.hel[,c(1:36)]),2)
+```
+
+### Correlograma de matriz ambiental y biológica 
+
+```{r}
+# Matriz de correlaciones con variables transformadas (M1)
+M1 <- cor(amb, tax.hel)
+
+corrplot(M1, method = "ellipse", type = "upper")
+```
+
+```{r}
+pca1 = PCA(amb, graph = FALSE, ncp = 5 )
+# para escalar las variables ambientales y se utiliza la matriz de covarianza. 
+summary(pca1)
+```
+
+## gráficos de contribución
+
+```{r}
+library(patchwork)
+c1<- fviz_contrib(pca1,choice="var",axes=1)
+# contribucion de componente 1
+c2<- fviz_contrib(pca1,choice="var",axes=2) # para componente 2
+
+c1/c2
+
+```
+
+# PCA con factoextra
+
+```{r}
+p3<- fviz_pca_biplot(pca1, geom.ind = "point", col.var = "black", col.ind = datos2$ZoogD, repel = TRUE, addEllipses = TRUE, legend.title= "Perturbación",  palette = c("#ff595e", "#ffd166", "#6a994e")) + 
+  theme_minimal()
+```
+
+```{r}
+# PCA con variables ambientales y especies
+library(FactoMineR)
+acp2 <- PCA(tax.hel, graph = FALSE, ncp = 36 )# especies
+coord<- acp2$var$coord
+coord<- coord[,1:2] # las coordemas de la componente 1 y 2 
+coord<- data.frame(coord) # lo transforme a base datos 
+colnames(coord)<- c("PC1", "PC2")
+coord
+coord<- transform(coord, PC1=PC1*0.2, PC2=PC2*0.2)
+```
+
+```{r}
+fviz_add(p3, coord, color ="blue", 
+         geom= c("text"), repel = TRUE, labelsize = 3, pointsize = 1)+ ggtitle("")
+```
